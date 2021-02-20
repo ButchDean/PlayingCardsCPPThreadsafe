@@ -6,26 +6,26 @@
 #include <cards.h>
 
 static cards::CardRefs card;
-static std::mutex block;
+static std::mutex mtx;
 static unsigned int drawCount = 0, shuffleCount = 0;
 
 void InitDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
 {
-	block.lock();
+	mtx.lock();
 	deckPtr->Init();
 	deckPtr->Shuffle();
 	shuffleCount++;
-	block.unlock();
+	mtx.unlock();
 }
 
 void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 {
 	if(card != cards::EMPTY_DECK)
 	{
-		block.lock();
+		mtx.lock();
 		card = deckPtr->Draw();
 		drawCount++;
-		block.unlock();
+		mtx.unlock();
 
 		std::printf("Dealed card: %s\n", deckPtr->CardToStr(card).c_str());
 		std::printf("With value: %d\n", deckPtr->CardValue(card));
@@ -36,10 +36,10 @@ void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 
 void ShuffleDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
 {
-	block.lock();
+	mtx.lock();
 	deckPtr->Shuffle();
 	shuffleCount++;
-	block.unlock();
+	mtx.unlock();
 }
 
 
@@ -62,7 +62,7 @@ int main()
 
 	threads.join();
 
-	std::printf("\nDraw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
+	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
 	return 0;
 }
