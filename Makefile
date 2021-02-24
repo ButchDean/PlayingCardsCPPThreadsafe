@@ -6,7 +6,7 @@ LIBS = -lboost_thread
 OPTS = -pthread
 
 $(EXE): $(DEPS)
-	$(CXX) -g $^ $(LIBS) -std=c++14 -o $@ $(OPTS)
+	$(CXX) -g $^ $(LIBS) -std=c++17 -o $@ $(OPTS)
 
 %.o: src/%.cpp
 	$(CXX) -c $(INCLUDES) $<
