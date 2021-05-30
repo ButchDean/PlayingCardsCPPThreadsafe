@@ -11,8 +11,6 @@ namespace cards
 	{
 		std::puts("Initializing default sorted deck...");
 
-		CardRefs cardRefs;
-
 		deck.clear();
 
 		for(int i = SPADES_A; i != EMPTY_DECK; i++)

@@ -1,8 +1,9 @@
+#include <iostream>
 #include <cstdio>
 #include <memory>
 #include <thread>
 #include <mutex>
-#include <boost/asio.hpp>
+#include <future>
 #include <cards.h>
 
 static cards::CardRefs card;
@@ -11,11 +12,10 @@ static unsigned int drawCount = 0, shuffleCount = 0;
 
 void InitDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
 {
-	mtx.lock();
+	std::lock_guard<std::mutex> lg(mtx);
 	deckPtr->Init();
 	deckPtr->Shuffle();
 	shuffleCount++;
-	mtx.unlock();
 }
 
 void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
@@ -36,31 +36,42 @@ void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
 
 void ShuffleDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
 {
-	mtx.lock();
+	std::lock_guard<std::mutex> lg(mtx);
 	deckPtr->Shuffle();
 	shuffleCount++;
-	mtx.unlock();
 }
-
 
 int main()
 {
-	boost::asio::thread_pool threads(4);
-
 	std::unique_ptr<cards::CCardDeck> cardDeck(new cards::CCardDeck);
+
+	// Initialize the deck
+	auto vf = std::async(std::launch::async, [&cardDeck]() {
+																							InitDeck(cardDeck);
+																							return true;
+																						});
+	vf.get();
 
 	for(unsigned int idx = 0; idx < 60; idx++)
 	{
-		if(idx == 0)
-			boost::asio::post(threads, [&cardDeck, idx](){ InitDeck(cardDeck); });
-
-		if(idx % 10 == 0)
-			boost::asio::post(threads, [&cardDeck, idx](){ ShuffleDeck(cardDeck); });
-		else
-			boost::asio::post(threads, [&cardDeck, idx](){ DrawCard(cardDeck); });
+		// Shuffle on every tenth itheration
+		if(idx % 10 == 0) {
+			auto wf = std::async(std::launch::async, [&cardDeck]() {
+																									ShuffleDeck(cardDeck);
+																									return true;
+																								});
+			wf.get();
+		}
+		else {	// Attempt to draw card
+			auto wf = std::async(std::launch::async, [&cardDeck]() {
+																									DrawCard(cardDeck);
+																									return true;
+																								});
+			wf.get();
+		}
 	}
 
-	threads.join();
+	//threads.join();
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
