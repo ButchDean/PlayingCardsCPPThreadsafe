@@ -47,9 +47,9 @@ int main()
 
 	// Initialize the deck
 	auto vf = std::async(std::launch::async, [&cardDeck]() {
-																							InitDeck(cardDeck);
-																							return true;
-																						});
+                            InitDeck(cardDeck);
+                            return true;
+                        });
 	vf.get();
 
 	for(unsigned int idx = 0; idx < 60; idx++)
@@ -57,16 +57,16 @@ int main()
 		// Shuffle on every tenth itheration
 		if(idx % 10 == 0) {
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
-																									ShuffleDeck(cardDeck);
-																									return true;
-																								});
+                                    ShuffleDeck(cardDeck);
+                                    return true;
+                                });
 			wf.get();
 		}
 		else {	// Attempt to draw card
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
-																									DrawCard(cardDeck);
-																									return true;
-																								});
+                                    DrawCard(cardDeck);
+                                    return true;
+                                });
 			wf.get();
 		}
 	}
