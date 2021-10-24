@@ -5,6 +5,8 @@ DEPS = main.o cards.o progbar.o
 INCLUDES = -I includes
 OPTS = -pthread
 
+all: $(EXE)
+
 $(EXE): $(DEPS)
 	$(CXX) -g $^ -o $@ $(OPTS)
 

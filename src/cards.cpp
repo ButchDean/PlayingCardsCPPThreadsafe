@@ -4,6 +4,7 @@
 #include <cmath>
 #include <functional>
 #include <cards.h>
+#include <progbar.h>
 
 namespace cards
 {
@@ -129,6 +130,10 @@ namespace cards
 			// Swap values
 			deck[posA] = cardValB;
 			deck[posB] = cardValA;
+
+			// Update the progress bar
+			const int PROG_DONE = j / randIterations * 100;
+			UpdateProgress(PROG_DONE);
 		}
 
 		std::printf("Shuffled deck size: %lu\n", deckSize);
