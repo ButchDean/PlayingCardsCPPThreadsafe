@@ -24,6 +24,6 @@ void UpdateProgress(const int PCT) {
   }
 
   std::printf("] %d%% Shuffled", PCT);
-  std::putchar('\n');
+
   std::fflush(stdout);
 }
