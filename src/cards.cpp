@@ -113,7 +113,6 @@ namespace cards
 		}
 
 		// We continue with shuffling.
-		std::puts("Shuffling deck...");
 
 		CardRefs cardValA, cardValB;
 
@@ -133,10 +132,10 @@ namespace cards
 
 			// Update the progress bar
 			const int PROG_DONE = j / randIterations * 100;
-			UpdateProgress(PROG_DONE);
+			UpdateProgress(PROG_DONE + 1);
 		}
 
-		std::printf("Shuffled deck size: %lu\n", deckSize);
+		std::printf("\nShuffled deck size: %lu\n", deckSize);
 	}
 
 	CardRefs CCardDeck::Draw()

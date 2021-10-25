@@ -11,7 +11,7 @@ const uint TOTAL_BAR_LENGTH = 30;
 void UpdateProgress(const int PCT) {
   const uint BARCOUNT = PCT * TOTAL_BAR_LENGTH / 100;
 
-  std::printf("\r[");
+  std::printf("\rShuffling Deck: [");
 
   for(uint i = 0; i < BARCOUNT; i++) {
     std::printf("#");
@@ -23,7 +23,7 @@ void UpdateProgress(const int PCT) {
     std::printf(" ");
   }
 
-  std::printf("] %d%% Shuffled", PCT);
+  std::printf("] %d%%", PCT);
 
   std::fflush(stdout);
 }
