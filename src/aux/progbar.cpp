@@ -9,12 +9,12 @@ typedef unsigned int uint;
 const uint TOTAL_BAR_LENGTH = 30;
 
 void UpdateProgress(const int PCT) {
-  const uint BARCOUNT = PCT * TOTAL_BAR_LENGTH / 100;
+  const uint BARCOUNT = (PCT + 1) * TOTAL_BAR_LENGTH / 100;
 
   std::printf("\rShuffling Deck: [");
 
   for(uint i = 0; i < BARCOUNT; i++) {
-    std::printf("#");
+    std::printf("=");
   }
 
   const uint BLANK_COUNT = TOTAL_BAR_LENGTH - BARCOUNT;
@@ -23,7 +23,7 @@ void UpdateProgress(const int PCT) {
     std::printf(" ");
   }
 
-  std::printf("] %d%%", PCT);
+  std::printf("] %d%%", (PCT == 0 ? 0 : PCT + 1));
 
   std::fflush(stdout);
 }

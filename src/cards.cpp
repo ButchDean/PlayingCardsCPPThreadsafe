@@ -132,7 +132,7 @@ namespace cards
 
 			// Update the progress bar
 			const int PROG_DONE = j / randIterations * 100;
-			UpdateProgress(PROG_DONE + 1);
+			UpdateProgress(PROG_DONE);
 		}
 
 		std::printf("\nShuffled deck size: %lu\n", deckSize);
