@@ -5,6 +5,8 @@
 #ifndef _PROGBAR_H_
 #define _PROGBAR_H_
 
-void UpdateProgress(const int pct);
+typedef unsigned int uint;
+
+void UpdateProgress(const uint pct, const uint size);
 
 #endif //_PROGBAR_H_

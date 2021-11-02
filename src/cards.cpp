@@ -132,10 +132,8 @@ namespace cards
 
 			// Update the progress bar
 			const int PROG_DONE = j / randIterations * 100;
-			UpdateProgress(PROG_DONE);
+			UpdateProgress(PROG_DONE, deckSize);
 		}
-
-		std::printf("\nShuffled deck size: %lu\n", deckSize);
 	}
 
 	CardRefs CCardDeck::Draw()
@@ -146,7 +144,7 @@ namespace cards
 			return EMPTY_DECK;
 		}
 
-		std::puts("Dealing card...");
+		std::puts("\nDealing card...");
 		CardRefs currentCard = deck[0];
 
 		// Remove top card from deck.

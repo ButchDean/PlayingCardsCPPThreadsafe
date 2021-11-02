@@ -8,8 +8,8 @@ typedef unsigned int uint;
 
 const uint TOTAL_BAR_LENGTH = 30;
 
-void UpdateProgress(const int PCT) {
-  const uint BARCOUNT = (PCT + 1) * TOTAL_BAR_LENGTH / 100;
+void UpdateProgress(const uint pct, const uint size) {
+  const uint BARCOUNT = (pct + 1) * TOTAL_BAR_LENGTH / 100;
 
   std::printf("\rShuffling Deck: [");
 
@@ -23,7 +23,7 @@ void UpdateProgress(const int PCT) {
     std::printf(" ");
   }
 
-  std::printf("] %d%%", (PCT == 0 ? 0 : PCT + 1));
+  std::printf("] %d%% for %d cards", (pct == 0 ? 0 : pct + 1), size);
 
   std::fflush(stdout);
 }
