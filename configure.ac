@@ -7,6 +7,5 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CXX([g++ clang++])
 AC_PROG_INSTALL
 
-AC_CHECK_HEADERS([thread mutex future functional])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
