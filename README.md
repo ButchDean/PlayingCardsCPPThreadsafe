@@ -7,3 +7,13 @@ Performs required card functionality like dealing and shuffling that can be part
 The specific value of the card is also given and can be set.
 
 Last but not least, minimal use of slow strings is used making this a faster solution.
+
+To build do:
+
+$ autoreconf --install
+$ ./configure
+$ make
+
+And to run do:
+
+$ src/playingcardsthreadsafe
