@@ -10,11 +10,15 @@ Last but not least, minimal use of slow strings is used making this a faster sol
 
 To build do:
 ```
-$ autoreconf -i
-$ ./configure
-$ make
+$ cmake -S . -B build
+$ cmake --build build
 ```
-And to run do:
+And to run the program do:
 ```
-$ src/playingcardsthreadsafe
+$ build/pcts
+```
+And to run unit tests do:
+```
+$ cd build
+$ ctest
 ```
