@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(includes)
 
-add_executable(pcts src/aux/probar.cpp src/cards.cpp src/main.cpp)
+add_executable(pcts src/aux/progbar.cpp src/cards.cpp src/main.cpp)
 
 target_link_libraries(pcts pthread)
