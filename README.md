@@ -10,7 +10,7 @@ Last but not least, minimal use of slow strings is used making this a faster sol
 
 To build do:
 ```
-$ autoreconf --install
+$ autoreconf -i
 $ ./configure
 $ make
 ```
