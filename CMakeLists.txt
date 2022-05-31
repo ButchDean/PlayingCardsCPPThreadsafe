@@ -9,3 +9,32 @@ include_directories(includes)
 add_executable(pcts src/aux/progbar.cpp src/cards.cpp src/main.cpp)
 
 target_link_libraries(pcts pthread)
+
+# Using GTest for unit testing
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
+)
+
+FetchContent_GetProperties(googletest)
+if(NOT googletest_POPULATED)
+    FetchContent_Populate(googletest)
+    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+endif()
+
+enable_testing()
+
+add_executable(
+    cardstest
+    unittest/cardstest.cpp
+)
+
+target_link_libraries(
+    cardstest
+    gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(cardstest)
