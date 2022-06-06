@@ -1,45 +1,10 @@
 #include <iostream>
 #include <cstdio>
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <future>
 #include <cards.h>
+#include <functional.h>
 
-static cards::CardRefs card;
-static std::mutex mtx;
-static unsigned int drawCount = 0, shuffleCount = 0;
-
-void InitDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
-{
-	std::lock_guard<std::mutex> lg(mtx);
-	deckPtr->Init();
-	deckPtr->Shuffle();
-	shuffleCount++;
-}
-
-void DrawCard(std::unique_ptr<cards::CCardDeck>& deckPtr)
-{
-	if(card != cards::EMPTY_DECK)
-	{
-		mtx.lock();
-		card = deckPtr->Draw();
-		drawCount++;
-		mtx.unlock();
-
-		std::printf("Dealed card: %s\n", deckPtr->CardToStr(card).c_str());
-		std::printf("With value: %d\n", deckPtr->CardValue(card));
-
-		return;
-	}
-}
-
-void ShuffleDeck(std::unique_ptr<cards::CCardDeck>& deckPtr)
-{
-	std::lock_guard<std::mutex> lg(mtx);
-	deckPtr->Shuffle();
-	shuffleCount++;
-}
+extern unsigned int drawCount; 
+extern unsigned int shuffleCount;
 
 int main()
 {
@@ -54,7 +19,7 @@ int main()
 
 	for(unsigned int idx = 0; idx < 60; idx++)
 	{
-		// Shuffle on every tenth itheration
+		// Shuffle on every tenth iteration
 		if(idx % 10 == 0) {
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
                                     ShuffleDeck(cardDeck);
