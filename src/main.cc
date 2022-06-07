@@ -6,8 +6,7 @@
 extern unsigned int drawCount; 
 extern unsigned int shuffleCount;
 
-int main()
-{
+int main() {
 	std::unique_ptr<cards::CCardDeck> cardDeck(new cards::CCardDeck);
 
 	// Initialize the deck
@@ -17,8 +16,7 @@ int main()
                         });
 	vf.get();
 
-	for(unsigned int idx = 0; idx < 60; idx++)
-	{
+	for(unsigned int idx = 0; idx < 60; idx++) {
 		// Shuffle on every tenth iteration
 		if(idx % 10 == 0) {
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
