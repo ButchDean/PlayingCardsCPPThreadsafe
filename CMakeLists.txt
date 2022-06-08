@@ -29,6 +29,8 @@ enable_testing()
 add_executable(
     cardstest
     unittest/cardstest.cc
+    src/aux/progbar.cc
+    src/cards.cc
 )
 
 target_link_libraries(

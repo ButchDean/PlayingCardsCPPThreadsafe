@@ -31,6 +31,10 @@ namespace cards
 			std::string CardToStr(const CardRefs card) const;
 			
 			int CardValue(const CardRefs card) const;
+
+			int DeckSize() {
+				return deck.size();
+			}
 			
 		private:
 			std::deque<CardRefs> deck;
