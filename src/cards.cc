@@ -24,7 +24,7 @@ namespace cards
 		// Set up strings and values for card enums.
 		cardDetail.clear();
 
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_A, {"SPADES_A", 21}));
+		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_A, {"SPADES_A", 1}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES2, {"SPADES2", 2}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES3, {"SPADES3", 3}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES4, {"SPADES4", 4}));
@@ -38,7 +38,7 @@ namespace cards
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_Q, {"SPADES_Q", 12}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_K, {"SPADES_K", 13}));
 
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_A, {"CLUBS_A", 21}));
+		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_A, {"CLUBS_A", 1}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS2, {"CLUBS2", 2}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS3, {"CLUBS3", 3}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS4, {"CLUBS4", 4}));
@@ -52,7 +52,7 @@ namespace cards
 		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_Q, {"CLUBS_Q", 12}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_K, {"CLUBS_K", 13}));
 
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_A, {"HEARTS_A", 21}));
+		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_A, {"HEARTS_A", 1}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS2, {"HEARTS2", 2}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS3, {"HEARTS3", 3}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS4, {"HEARTS4", 4}));
@@ -66,7 +66,7 @@ namespace cards
 		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_Q, {"HEARTS_Q", 12}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_K, {"HEARTS_K", 13}));
 
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_A, {"DIAMONDS_A", 21}));
+		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_A, {"DIAMONDS_A", 1}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS2, {"DIAMONDS2", 2}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS3, {"DIAMONDS3", 3}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS4, {"DIAMONDS4", 4}));

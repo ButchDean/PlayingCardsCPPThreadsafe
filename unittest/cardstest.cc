@@ -66,4 +66,31 @@ TEST(PlayingCardsTest, CheckEachCardUniqueUnshuffled) {
     EXPECT_EQ(same, CARDDECKSIZE);
 }
 
+TEST(PlayingCardsTest, CheckEachCardUniqueShuffled) {
+    CCardDeck cardDeck;
+
+    cardDeck.Init();
+
+    CardRefs cr = SPADES_A;
+    std::vector<CardRefs> cardVec;
+    int same = 0;
+
+    cardDeck.Shuffle();
+
+    while(cr != EMPTY_DECK) {
+        cr = cardDeck.Draw();
+        cardVec.push_back(cr);
+    }
+
+    for(int i = 0; i < cardVec.size() - 1; i++) {
+        for(int j = 0; j < cardVec.size() - 1; j++) {
+            if(cardVec[i] == cardVec[j]) {
+                same++;
+            }
+        }
+    }
+
+    EXPECT_EQ(same, CARDDECKSIZE);
+}
+
 }
