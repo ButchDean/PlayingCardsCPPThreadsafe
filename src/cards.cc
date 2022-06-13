@@ -6,6 +6,11 @@
 #include <cards.h>
 #include <progbar.h>
 
+struct cardSpecs {
+	int card;
+	cards::CardDetail cd;
+};
+
 namespace cards
 {
 	void CCardDeck::Init()
@@ -24,7 +29,10 @@ namespace cards
 		// Set up strings and values for card enums.
 		cardDetail.clear();
 
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_A, {"SPADES_A", 1}));
+		cardSpecs tst = {SPADES_A, {"SPADES_A", 1}};
+
+		//cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_A, {"SPADES_A", 1}));
+		cardDetail.insert({tst.card, {tst.cd.cardStr, tst.cd.cardVal}});
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES2, {"SPADES2", 2}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES3, {"SPADES3", 3}));
 		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES4, {"SPADES4", 4}));
