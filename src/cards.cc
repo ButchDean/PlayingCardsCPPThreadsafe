@@ -6,11 +6,6 @@
 #include <cards.h>
 #include <progbar.h>
 
-struct cardSpecs {
-	int card;
-	cards::CardDetail cd;
-};
-
 namespace cards
 {
 	void CCardDeck::Init()
@@ -26,67 +21,11 @@ namespace cards
 
 		std::printf("Deck size: %lu\n", deck.size());
 
-		// Set up strings and values for card enums.
+		// Populate card values and other details key-value pairs.
 		cardDetail.clear();
-
-		cardSpecs tst = {SPADES_A, {"SPADES_A", 1}};
-
-		//cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_A, {"SPADES_A", 1}));
-		cardDetail.insert({tst.card, {tst.cd.cardStr, tst.cd.cardVal}});
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES2, {"SPADES2", 2}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES3, {"SPADES3", 3}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES4, {"SPADES4", 4}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES5, {"SPADES5", 5}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES6, {"SPADES6", 6}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES7, {"SPADES7", 7}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES8, {"SPADES8", 8}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES9, {"SPADES9", 9}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES10, {"SPADES10", 10}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_J, {"SPADES_J", 11}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_Q, {"SPADES_Q", 12}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(SPADES_K, {"SPADES_K", 13}));
-
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_A, {"CLUBS_A", 1}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS2, {"CLUBS2", 2}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS3, {"CLUBS3", 3}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS4, {"CLUBS4", 4}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS5, {"CLUBS5", 5}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS6, {"CLUBS6", 6}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS7, {"CLUBS7", 7}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS8, {"CLUBS8", 8}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS9, {"CLUBS9", 9}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS10, {"CLUBS10", 10}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_J, {"CLUBS_J", 11}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_Q, {"CLUBS_Q", 12}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(CLUBS_K, {"CLUBS_K", 13}));
-
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_A, {"HEARTS_A", 1}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS2, {"HEARTS2", 2}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS3, {"HEARTS3", 3}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS4, {"HEARTS4", 4}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS5, {"HEARTS5", 5}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS6, {"HEARTS6", 6}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS7, {"HEARTS7", 7}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS8, {"HEARTS8", 8}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS9, {"HEARTS9", 9}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS10, {"HEARTS10", 10}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_J, {"HEARTS_J", 11}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_Q, {"HEARTS_Q", 12}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(HEARTS_K, {"HEARTS_K", 13}));
-
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_A, {"DIAMONDS_A", 1}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS2, {"DIAMONDS2", 2}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS3, {"DIAMONDS3", 3}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS4, {"DIAMONDS4", 4}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS5, {"DIAMONDS5", 5}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS6, {"DIAMONDS6", 6}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS7, {"DIAMONDS7", 7}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS8, {"DIAMONDS8", 8}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS9, {"DIAMONDS9", 9}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS10, {"DIAMONDS10", 10}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_J, {"DIAMONDS_J", 11}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_Q, {"DIAMONDS_Q", 12}));
-		cardDetail.insert(std::make_pair<int, CardDetail>(DIAMONDS_K, {"DIAMONDS_K", 13}));
+		for(auto c : cardspecs) {
+			cardDetail.insert({c.card, c.cd});
+		}
 	}
 
 	int CCardDeck::_GetRandomCardPos()

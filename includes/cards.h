@@ -85,7 +85,7 @@ namespace cards
 				cardspecs.push_back({DIAMONDS_Q, {"DIAMONDS_Q", 12}});
 				cardspecs.push_back({DIAMONDS_K, {"DIAMONDS_K", 13}});							
 			}
-			~CCardDeck(){}
+			~CCardDeck() = default;
 			
 			void Init();
 			void Shuffle();
