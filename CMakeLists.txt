@@ -4,6 +4,10 @@ project(playing_cards_cpp_threadsafe)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(ENABLE_DEVELOPER_MODE TRUE CACHE BOOL "Enable dev mode sanitization")
+
+set(OPT_WARNINGS_AS_ERRORS_DEVELOPER_DEFAULT TRUE)
+
 include_directories(includes)
 
 add_executable(pcts src/functional.cc src/aux/progbar.cc src/cards.cc src/main.cc)
