@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 project(playing_cards_cpp_threadsafe)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(ENABLE_DEVELOPER_MODE TRUE CACHE BOOL "Enable dev mode sanitization")
 
@@ -10,9 +11,11 @@ set(OPT_WARNINGS_AS_ERRORS_DEVELOPER_DEFAULT TRUE)
 
 include_directories(includes)
 
-add_executable(pcts src/functional.cc src/aux/progbar.cc src/cards.cc src/main.cc)
+add_library(ProgBarLib STATIC src/aux/progbar.cc)
 
-target_link_libraries(pcts pthread)
+add_executable(pcts src/functional.cc src/cards.cc src/main.cc)
+
+target_link_libraries(pcts pthread ProgBarLib)
 
 # Using GTest for unit testing
 include(FetchContent)
@@ -33,12 +36,12 @@ enable_testing()
 add_executable(
     cardstest
     unittest/cardstest.cc
-    src/aux/progbar.cc
     src/cards.cc
 )
 
 target_link_libraries(
     cardstest
+    ProgBarLib
     gtest_main
 )
 
