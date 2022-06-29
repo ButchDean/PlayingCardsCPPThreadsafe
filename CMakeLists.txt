@@ -13,10 +13,15 @@ include_directories(includes)
 
 add_library(ProgBarLib STATIC src/aux/progbar.cc)
 add_library(FunctionalLib STATIC src/functional.cc)
+add_library(CardsLib STATIC src/cards.cc)
 
-add_executable(pcts src/cards.cc src/main.cc)
+add_executable(pcts src/main.cc)
 
-target_link_libraries(pcts pthread ProgBarLib FunctionalLib)
+target_link_libraries(pcts 
+                      pthread 
+                      ProgBarLib 
+                      FunctionalLib
+                      CardsLib)
 
 # Using GTest for unit testing
 include(FetchContent)
@@ -37,13 +42,13 @@ enable_testing()
 add_executable(
     cardstest
     unittest/cardstest.cc
-    src/cards.cc
 )
 
 target_link_libraries(
     cardstest
     ProgBarLib
     FunctionalLib
+    CardsLib
     gtest_main
 )
 
