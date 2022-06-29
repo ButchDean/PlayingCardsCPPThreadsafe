@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 project(playing_cards_cpp_threadsafe)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 set(ENABLE_DEVELOPER_MODE TRUE CACHE BOOL "Enable dev mode sanitization")
 
