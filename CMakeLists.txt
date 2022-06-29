@@ -12,10 +12,11 @@ set(OPT_WARNINGS_AS_ERRORS_DEVELOPER_DEFAULT TRUE)
 include_directories(includes)
 
 add_library(ProgBarLib STATIC src/aux/progbar.cc)
+add_library(FunctionalLib STATIC src/functional.cc)
 
-add_executable(pcts src/functional.cc src/cards.cc src/main.cc)
+add_executable(pcts src/cards.cc src/main.cc)
 
-target_link_libraries(pcts pthread ProgBarLib)
+target_link_libraries(pcts pthread ProgBarLib FunctionalLib)
 
 # Using GTest for unit testing
 include(FetchContent)
@@ -42,6 +43,7 @@ add_executable(
 target_link_libraries(
     cardstest
     ProgBarLib
+    FunctionalLib
     gtest_main
 )
 
