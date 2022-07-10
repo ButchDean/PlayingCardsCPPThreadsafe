@@ -86,6 +86,11 @@ namespace cards
 				cardspecs.push_back({DIAMONDS_K, {"DIAMONDS_K", 13}});							
 			}
 			~CCardDeck() = default;
+
+			CCardDeck(const CCardDeck &) = delete;
+			CCardDeck(CCardDeck &&) = delete;
+			CCardDeck &operator=(const CCardDeck &) = delete;
+			CCardDeck &operator=(CCardDeck &&) = delete;
 			
 			void Init();
 			void Shuffle();
