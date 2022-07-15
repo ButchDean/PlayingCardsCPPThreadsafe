@@ -87,7 +87,7 @@ namespace cards
 		if(deck.empty())
 		{
 			std::puts("Attempted to deal but deck is empty.");
-			return EMPTY_DECK;
+			return CardRefs::EMPTY_DECK;
 		}
 
 		std::puts("\nDealing card...");

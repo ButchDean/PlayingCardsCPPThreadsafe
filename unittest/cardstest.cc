@@ -34,7 +34,7 @@ TEST(PlayingCardsTest, DrawToEmptyDeckWithZeroCardsRemaining) {
 
     CardRefs cr = cardDeck.Draw();
 
-    while(cr != EMPTY_DECK) {
+    while(cr != CardRefs::EMPTY_DECK) {
         cr = cardDeck.Draw();
     }
 
@@ -46,11 +46,11 @@ TEST(PlayingCardsTest, CheckEachCardUniqueUnshuffled) {
 
     cardDeck.Init();
 
-    CardRefs cr = SPADES_A;
+    CardRefs cr = CardRefs::SPADES_A;
     std::vector<CardRefs> cardVec;
     int same = 0;
 
-    while(cr != EMPTY_DECK) {
+    while(cr != CardRefs::EMPTY_DECK) {
         cr = cardDeck.Draw();
         cardVec.push_back(cr);
     }
@@ -71,13 +71,13 @@ TEST(PlayingCardsTest, CheckEachCardUniqueShuffled) {
 
     cardDeck.Init();
 
-    CardRefs cr = SPADES_A;
+    CardRefs cr = CardRefs::SPADES_A;
     std::vector<CardRefs> cardVec;
     int same = 0;
 
     cardDeck.Shuffle();
 
-    while(cr != EMPTY_DECK) {
+    while(cr != CardRefs::EMPTY_DECK) {
         cr = cardDeck.Draw();
         cardVec.push_back(cr);
     }
@@ -100,7 +100,7 @@ TEST(PlayingCardsTest, CanReinitializeEmptyDeck) {
 
     CardRefs cr = cardDeck.Draw();
 
-    while(cr != EMPTY_DECK) {
+    while(cr != CardRefs::EMPTY_DECK) {
         cr = cardDeck.Draw();
     }
 
@@ -124,11 +124,11 @@ TEST(PlayingCardsTest, CanDoubleInitializeDeckToRemainSameSizeEachCardUnique) {
     cardDeck.Init();
     cardDeck.Init();
 
-    CardRefs cr = SPADES_A;
+    CardRefs cr = CardRefs::SPADES_A;
     std::vector<CardRefs> cardVec;
     int same = 0;
 
-    while(cr != EMPTY_DECK) {
+    while(cr != CardRefs::EMPTY_DECK) {
         cr = cardDeck.Draw();
         cardVec.push_back(cr);
     }

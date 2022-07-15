@@ -105,7 +105,7 @@ namespace cards
 			
 		private:
 			std::deque<CardRefs> deck;
-			std::unordered_map<int, CardDetail> cardDetail;
+			std::unordered_map<CardRefs, CardDetail> cardDetail;
 			std::vector<cardSpecs> cardspecs;
 			
 			int _GetRandomCardPos();	
