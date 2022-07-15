@@ -14,9 +14,8 @@ namespace cards
 
 		deck.clear();
 
-		for(int i = SPADES_A; i != EMPTY_DECK; i++)
-		{
-			deck.push_back(static_cast<CardRefs>(i));
+		for(const auto& c : cardspecs) {
+			deck.push_back(c.card);
 		}
 
 		std::printf("Deck size: %lu\n", deck.size());
