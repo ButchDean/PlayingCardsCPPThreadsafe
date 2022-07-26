@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#define CARDDECKSIZE 52
+#include <common.h>
 
 namespace cards {
 
