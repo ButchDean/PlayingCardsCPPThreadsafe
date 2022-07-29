@@ -7,7 +7,7 @@ extern unsigned int drawCount;
 extern unsigned int shuffleCount;
 
 int main() {
-	std::unique_ptr<cards::CCardDeck> cardDeck = std::make_unique<cards::CCardDeck>();
+	auto cardDeck = std::make_unique<cards::CCardDeck>();
 
 	// Initialize the deck
 	auto vf = std::async(std::launch::async, [&cardDeck]() {
@@ -33,8 +33,6 @@ int main() {
 			wf.get();
 		}
 	}
-
-	//threads.join();
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
