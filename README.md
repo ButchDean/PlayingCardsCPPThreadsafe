@@ -8,6 +8,10 @@ The specific value of the card is also given and can be set.
 
 Last but not least, minimal use of slow strings is used making this a faster solution.
 
+To clone this repo do:
+```
+git clone --recurse-submodules git@github.com:ButchDean/PlayingCardsCPPThreadsafe.git
+```
 To build do:
 ```
 $ cmake -S . -B build
@@ -19,6 +23,6 @@ $ build/pcts
 ```
 And to run unit tests do:
 ```
-$ cd build
+$ cd build/PlayingCardsCore
 $ ctest
 ```
