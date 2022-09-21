@@ -1,0 +1,3 @@
+[submodule "PlayingCardsCore"]
+	path = PlayingCardsCore
+	url = https://github.com/ButchDean/PlayingCardsCore.git
