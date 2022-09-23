@@ -13,6 +13,10 @@ include_directories(PlayingCardsCore/includes)
 
 add_subdirectory(PlayingCardsCore)
 
+add_library(ProgBarLib STATIC PlayingCardsCore/src/aux/progbar.cc)
+add_library(FunctionalLib STATIC PlayingCardsCore/src/functional.cc)
+add_library(CardsLib STATIC PlayingCardsCore/src/cards.cc)
+
 add_executable(pcts src/main.cc)
 
 target_link_libraries(pcts 
