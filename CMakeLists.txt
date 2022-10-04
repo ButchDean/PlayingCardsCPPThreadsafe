@@ -13,14 +13,20 @@ include_directories(PlayingCardsCore/includes)
 
 add_subdirectory(PlayingCardsCore)
 
-add_library(ProgBarLib STATIC PlayingCardsCore/src/aux/progbar.cc)
-add_library(FunctionalLib STATIC PlayingCardsCore/src/functional.cc)
-add_library(CardsLib STATIC PlayingCardsCore/src/cards.cc)
+if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
+    add_library(ProgBarLib STATIC PlayingCardsCore/src/aux/progbar.cc)
+    add_library(FunctionalLib STATIC PlayingCardsCore/src/functional.cc)
+    add_library(CardsLib STATIC PlayingCardsCore/src/cards.cc)
 
-add_executable(pcts src/main.cc)
+    add_executable(pcts src/main.cc)
 
-target_link_libraries(pcts 
-                      pthread 
-                      ProgBarLib 
-                      FunctionalLib
-                      CardsLib)
+    target_link_libraries(pcts 
+                        pthread 
+                        ProgBarLib 
+                        FunctionalLib
+                        CardsLib)
+elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Linux")
+    message("TODO: Build for Linux")
+else()
+    message("Unrecognized platform (and we especially don't do Windows!)")
+endif()
