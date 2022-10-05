@@ -21,12 +21,19 @@ if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
     add_executable(pcts src/main.cc)
 
     target_link_libraries(pcts 
-                        pthread 
-                        ProgBarLib 
-                        FunctionalLib
-                        CardsLib)
+                          pthread 
+                          ProgBarLib 
+                          FunctionalLib
+                          CardsLib)
 elseif(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Linux")
-    message("TODO: Build for Linux")
+    add_executable(pcts 
+                   PlayingCardsCore/src/functional.cc
+                   PlayingCardsCore/src/aux/progbar.cc
+                   PlayingCardsCore/src/cards.cc
+                   src/main.cc)
+
+    target_link_libraries(pcts 
+                          pthread)    
 else()
     message("Unrecognized platform (and we especially don't do Windows!)")
 endif()
