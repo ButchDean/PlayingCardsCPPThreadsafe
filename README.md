@@ -23,6 +23,12 @@ $ build/pcts
 ```
 And to run unit tests do:
 ```
-$ cd build/PlayingCardsCore
+$ cd build/PlayingCardsCore****
 $ ctest
 ```
+## Supported Platforms
+
+* Mac OS
+* Linux (coming up)
+
+Windows support is not planned at this time. It should be easy enough to import the .cc and .h files into a Visual Studio Console Application, but I have not checked since I only have Mac and Linux machines.****
