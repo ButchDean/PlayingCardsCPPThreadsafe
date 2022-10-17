@@ -31,4 +31,4 @@ $ ctest
 * Mac OS
 * Linux (coming up)
 
-Windows support is not planned at this time. It should be easy enough to import the .cc and .h files into a Visual Studio Console Application, but I have not checked since I only have Mac and Linux machines.****
+Windows support is not planned at this time. It should be easy enough to import the .cc and .h files into a Visual Studio Console Application, but I have not checked since I only have Mac and Linux machines.
