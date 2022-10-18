@@ -28,6 +28,15 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
                           FunctionalLib
                           CardsLib)    
 else()
-    message(FATAL_ERROR "Only currently building for Mac OS")
+    message(STATUS "Building for Linux")
+
+    add_executable(pcts 
+                   src/main.cc
+                   PlayingCardsCore/src/aux/progbar.cc
+                   PlayingCardsCore/src/functional.cc
+                   PlayingCardsCore/src/cards.cc)
+
+    target_link_libraries(pcts 
+                          pthread)     
 endif()
 
