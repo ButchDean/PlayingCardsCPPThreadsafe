@@ -2,12 +2,6 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 
 project(playing_cards_cpp_threadsafe)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    message(STATUS "Building for Mac OS")
-else()
-    message(FATAL_ERROR "Only currently building for Mac OS")
-endif()
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
@@ -19,10 +13,21 @@ include_directories(PlayingCardsCore/includes)
 
 add_subdirectory(PlayingCardsCore)
 
-add_executable(pcts src/main.cc)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    message(STATUS "Building for Mac OS")
 
-target_link_libraries(pcts 
-                      pthread 
-                      ProgBarLib 
-                      FunctionalLib
-                      CardsLib)
+    add_library(ProgBarLib STATIC PlayingCardsCore/src/aux/progbar.cc)
+    add_library(FunctionalLib STATIC PlayingCardsCore/src/functional.cc)
+    add_library(CardsLib STATIC PlayingCardsCore/src/cards.cc)
+
+    add_executable(pcts src/main.cc)
+
+    target_link_libraries(pcts 
+                          pthread 
+                          ProgBarLib 
+                          FunctionalLib
+                          CardsLib)    
+else()
+    message(FATAL_ERROR "Only currently building for Mac OS")
+endif()
+

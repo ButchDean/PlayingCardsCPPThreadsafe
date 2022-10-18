@@ -23,7 +23,7 @@ $ build/pcts
 ```
 And to run unit tests do:
 ```
-$ cd build/PlayingCardsCore****
+$ cd build/PlayingCardsCore
 $ ctest
 ```
 ## Supported Platforms
