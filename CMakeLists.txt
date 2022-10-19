@@ -27,7 +27,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
                           ProgBarLib 
                           FunctionalLib
                           CardsLib)    
-else()
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     message(STATUS "Building for Linux")
 
     add_executable(pcts 
@@ -38,5 +38,7 @@ else()
 
     target_link_libraries(pcts 
                           pthread)     
+else()
+    message(FATAL_ERROR "Only Mac and Linux officially supported.")
 endif()
 
