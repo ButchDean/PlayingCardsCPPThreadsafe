@@ -3,10 +3,10 @@
 #include <future>
 #include <cards.h>
 
-static cards::CardRefs card;
+static cards::CardRefs card = cards::CardRefs::CLUBS2;
 static std::mutex mtx;
-static unsigned int drawCount; 
-static unsigned int shuffleCount;
+static unsigned int drawCount = 0u; 
+static unsigned int shuffleCount = 0u;
 
 static void InitDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
