@@ -17,7 +17,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     message(STATUS "Building for Mac OS")
 
     add_library(ProgBarLib STATIC PlayingCardsCore/src/aux/progbar.cc)
-    add_library(FunctionalLib STATIC PlayingCardsCore/src/functional.cc)
     add_library(CardsLib STATIC PlayingCardsCore/src/cards.cc)
 
     add_executable(pcts src/main.cc)
@@ -25,7 +24,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(pcts 
                           pthread 
                           ProgBarLib 
-                          FunctionalLib
                           CardsLib)    
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     message(STATUS "Building for Linux")
@@ -33,7 +31,6 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     add_executable(pcts 
                    src/main.cc
                    PlayingCardsCore/src/aux/progbar.cc
-                   PlayingCardsCore/src/functional.cc
                    PlayingCardsCore/src/cards.cc)
 
     target_link_libraries(pcts 

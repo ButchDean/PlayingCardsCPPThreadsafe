@@ -1,17 +1,48 @@
 #include <iostream>
 #include <cstdio>
+#include <future>
 #include <cards.h>
-#include <functional.h>
 
-extern unsigned int drawCount; 
-extern unsigned int shuffleCount;
+static cards::CardRefs card;
+static std::mutex mtx;
+static unsigned int drawCount; 
+static unsigned int shuffleCount;
+
+static void InitDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
+{
+	std::lock_guard<std::mutex> lg(mtx);
+	deckPtr->Init();
+	deckPtr->Shuffle();
+	shuffleCount++;
+}
+
+static void DrawCard(std::unique_ptr<cards::CCardDeck>&& deckPtr)
+{
+	if(card != cards::CardRefs::EMPTY_DECK)
+	{
+		mtx.lock();
+		card = std::move(deckPtr->Draw());
+		drawCount++;
+		mtx.unlock();
+
+		std::printf("Dealed card: %s\n", deckPtr->CardToStr(card).c_str());
+		std::printf("With value: %d\n", deckPtr->CardValue(card));
+	}
+}
+
+static void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
+{
+	std::lock_guard<std::mutex> lg(mtx);
+	deckPtr->Shuffle();
+	shuffleCount++;
+}
 
 int main() {
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
 
 	// Initialize the deck
 	auto vf = std::async(std::launch::async, [&cardDeck]() {
-                            InitDeck(cardDeck);
+                            InitDeck(std::move(cardDeck));
                             return true;
                         });
 	vf.get();
@@ -20,14 +51,14 @@ int main() {
 		// Shuffle on every tenth iteration
 		if(idx % 10 == 0) {
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
-                                    ShuffleDeck(cardDeck);
+                                    ShuffleDeck(std::move(cardDeck));
                                     return true;
                                 });
 			wf.get();
 		}
 		else {	// Attempt to draw card
 			auto wf = std::async(std::launch::async, [&cardDeck]() {
-                                    DrawCard(cardDeck);
+                                    DrawCard(std::move(cardDeck));
                                     return true;
                                 });
 			wf.get();
