@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <future>
+#include <functional>
 #include <cards.h>
 
 static cards::CardRefs card = cards::CardRefs::CLUBS2;
@@ -12,8 +13,6 @@ static void InitDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
 	std::lock_guard<std::mutex> lg(mtx);
 	deckPtr->Init();
-	deckPtr->Shuffle();
-	shuffleCount++;
 }
 
 static void DrawCard(std::unique_ptr<cards::CCardDeck>&& deckPtr)
@@ -40,30 +39,18 @@ static void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 int main() {
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
 
-	// Initialize the deck
-	auto vf = std::async(std::launch::async, [&cardDeck]() {
-                            InitDeck(std::move(cardDeck));
-                            return true;
-                        });
-	vf.get();
+	std::function<void(std::unique_ptr<cards::CCardDeck>&&)> cardFunc = InitDeck;
 
-	for(unsigned int idx = 0; idx < 60; idx++) {
-		// Shuffle on every tenth iteration
-		if(idx % 10 == 0) {
-			auto wf = std::async(std::launch::async, [&cardDeck]() {
-                                    ShuffleDeck(std::move(cardDeck));
-                                    return true;
-                                });
-			wf.get();
-		}
-		else {	// Attempt to draw card
-			auto wf = std::async(std::launch::async, [&cardDeck]() {
-                                    DrawCard(std::move(cardDeck));
-                                    return true;
-                                });
-			wf.get();
-		}
-	}
+	// Initialize the deck
+	cardFunc(std::move(cardDeck));
+
+	// Shuffle on every tenth iteration
+	cardFunc = ShuffleDeck;
+	cardFunc(std::move(cardDeck));
+
+	// Attempt to draw card
+	cardFunc = DrawCard;
+	cardFunc(std::move(cardDeck));
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
