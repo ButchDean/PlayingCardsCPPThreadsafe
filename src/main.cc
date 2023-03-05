@@ -38,10 +38,10 @@ static void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 
 int main() {
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
-
-	std::function<void(std::unique_ptr<cards::CCardDeck>&&)> cardFunc = InitDeck;
+	std::function<void(std::unique_ptr<cards::CCardDeck>&&)> cardFunc;
 
 	// Initialize the deck
+	cardFunc = InitDeck;
 	cardFunc(std::move(cardDeck));
 
 	// Shuffle on every tenth iteration
