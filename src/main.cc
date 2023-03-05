@@ -38,19 +38,20 @@ static void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 
 int main() {
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
-	std::function<void(std::unique_ptr<cards::CCardDeck>&&)> cardFunc;
+
+	using funcWrap = std::function<void(std::unique_ptr<cards::CCardDeck>&&)>;
 
 	// Initialize the deck
-	cardFunc = InitDeck;
-	cardFunc(std::move(cardDeck));
+	funcWrap f = std::bind(&InitDeck, std::placeholders::_1);
+	f(std::move(cardDeck));
 
 	// Shuffle on every tenth iteration
-	cardFunc = ShuffleDeck;
-	cardFunc(std::move(cardDeck));
+	f = std::bind(&ShuffleDeck, std::placeholders::_1);
+	f(std::move(cardDeck));
 
 	// Attempt to draw card
-	cardFunc = DrawCard;
-	cardFunc(std::move(cardDeck));
+	f = std::bind(&DrawCard, std::placeholders::_1);
+	f(std::move(cardDeck));
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
