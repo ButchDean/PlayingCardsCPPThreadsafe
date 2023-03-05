@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <future>
 #include <functional>
+#include <vector>
 #include <cards.h>
 
 static cards::CardRefs card = cards::CardRefs::CLUBS2;
@@ -19,10 +20,9 @@ static void DrawCard(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 {
 	if(card != cards::CardRefs::EMPTY_DECK)
 	{
-		mtx.lock();
+		std::lock_guard<std::mutex> lg(mtx);
 		card = std::move(deckPtr->Draw());
 		drawCount++;
-		mtx.unlock();
 
 		std::printf("Dealed card: %s\n", deckPtr->CardToStr(card).c_str());
 		std::printf("With value: %d\n", deckPtr->CardValue(card));
@@ -37,21 +37,24 @@ static void ShuffleDeck(std::unique_ptr<cards::CCardDeck>&& deckPtr)
 }
 
 int main() {
-	auto cardDeck = std::make_unique<cards::CCardDeck>();
-
 	using funcWrap = std::function<void(std::unique_ptr<cards::CCardDeck>&&)>;
 
-	// Initialize the deck
-	funcWrap f = std::bind(&InitDeck, std::placeholders::_1);
-	f(std::move(cardDeck));
+	const std::vector<funcWrap> fw = {
+		std::bind(&InitDeck, std::placeholders::_1),
+		std::bind(&ShuffleDeck, std::placeholders::_1),
+		std::bind(&DrawCard, std::placeholders::_1)
+	};
 
-	// Shuffle on every tenth iteration
-	f = std::bind(&ShuffleDeck, std::placeholders::_1);
-	f(std::move(cardDeck));
+	auto cardDeck = std::make_unique<cards::CCardDeck>();
+
+	// Initialize the deck
+	fw[0](std::move(cardDeck));
+
+	// Shuffle the deck
+	fw[1](std::move(cardDeck));
 
 	// Attempt to draw card
-	f = std::bind(&DrawCard, std::placeholders::_1);
-	f(std::move(cardDeck));
+	fw[2](std::move(cardDeck));
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
