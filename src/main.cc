@@ -39,6 +39,10 @@ int main() {
 		}, std::placeholders::_1)
 	};
 
+	auto printStats = [=]() {
+		std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
+	};
+
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
 
 	// Events:
@@ -57,7 +61,15 @@ int main() {
 			e.join();
 	}
 
-	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
+	printStats();
+
+	// Draw remaining cards (attrempting beyond empty)
+	for(int i = 0; i < 100; i++) {
+		std::thread e(fw[2], std::ref(cardDeck));
+		e.detach();
+	}
+
+	printStats();
 
 	return 0;
 }
