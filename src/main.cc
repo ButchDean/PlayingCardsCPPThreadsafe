@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdio>
-#include <future>
+#include <thread>
 #include <functional>
 #include <vector>
 #include <cards.h>
@@ -11,22 +11,22 @@ static unsigned int drawCount = 0u;
 static unsigned int shuffleCount = 0u;
 
 int main() {
-	using funcWrap = std::function<void(std::unique_ptr<cards::CCardDeck>&&)>;
+	using funcWrap = std::function<void(std::unique_ptr<cards::CCardDeck>&)>;
 
 	const std::vector<funcWrap> fw = {
-		// Initialize deck
-		std::bind([](std::unique_ptr<cards::CCardDeck>&& deckPtr) {
+		// Initialize deck [0]
+		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
 			std::lock_guard<std::mutex> lg(mtx);
 			deckPtr->Init();
 		}, std::placeholders::_1),
-		// Shuffle deck
-		std::bind([](std::unique_ptr<cards::CCardDeck>&& deckPtr) {
+		// Shuffle deck [1]
+		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
 			std::lock_guard<std::mutex> lg(mtx);
 			deckPtr->Shuffle();
 			shuffleCount++;
 		}, std::placeholders::_1),
-		// Draw card
-		std::bind([](std::unique_ptr<cards::CCardDeck>&& deckPtr) {
+		// Draw card [2]
+		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
 			if(card != cards::CardRefs::EMPTY_DECK)
 			{
 				std::lock_guard<std::mutex> lg(mtx);
@@ -41,14 +41,16 @@ int main() {
 
 	auto cardDeck = std::make_unique<cards::CCardDeck>();
 
-	// Initialize the deck
-	fw[0](std::move(cardDeck));
+	// Events:
+	// 0 -> Initialize deck
+	// 1 -> Shuffle deck
+	// 2 -> Draw card
+	std::vector<int> events = {0, 1, 2, 2, 2, 2, 1, 2, 2, 0, 2, 2, 2, 1, 2, 2};
 
-	// Shuffle the deck
-	fw[1](std::move(cardDeck));
-
-	// Attempt to draw card
-	fw[2](std::move(cardDeck));
+	for(auto i : events) {
+		std::thread e(fw[i], std::ref(cardDeck));
+		e.join();
+	}
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
 
