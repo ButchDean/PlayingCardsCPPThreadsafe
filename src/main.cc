@@ -48,8 +48,13 @@ int main() {
 	std::vector<int> events = {0, 1, 2, 2, 2, 2, 1, 2, 2, 0, 2, 2, 2, 1, 2, 2};
 
 	for(auto i : events) {
+		i = i % 3; // Ensure operations fall in range
 		std::thread e(fw[i], std::ref(cardDeck));
-		e.join();
+
+		if(i == 3)
+			e.detach();
+		else
+			e.join();
 	}
 
 	std::printf("\nAttempted Draw Count: %d\nShuffle Count: %d\n", drawCount, shuffleCount);
