@@ -5,7 +5,7 @@
 #include <vector>
 #include <cards.h>
 
-static cards::CardRefs card = cards::CardRefs::CLUBS2;
+static cards::CardRefs card;
 static std::mutex mtx;
 static unsigned int drawCount = 0u; 
 static unsigned int shuffleCount = 0u;
