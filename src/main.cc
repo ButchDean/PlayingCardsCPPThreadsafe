@@ -55,7 +55,7 @@ int main() {
 		i = i % 3; // Ensure operations fall in range
 		std::thread e(fw[i], std::ref(cardDeck));
 
-		if(i == 3)
+		if(i == 2)
 			e.detach();
 		else
 			e.join();
