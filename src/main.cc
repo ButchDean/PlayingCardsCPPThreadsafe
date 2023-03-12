@@ -12,21 +12,22 @@ static unsigned int shuffleCount = 0u;
 
 int main() {
 	using funcWrap = std::function<void(std::unique_ptr<cards::CCardDeck>&)>;
+	using deckUniquePtrRef = std::unique_ptr<cards::CCardDeck>&;
 
 	const std::vector<funcWrap> fw = {
 		// Initialize deck
-		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
+		std::bind([](deckUniquePtrRef deckPtr) {
 			std::lock_guard<std::mutex> lg(mtx);
 			deckPtr->Init();
 		}, std::placeholders::_1),
 		// Shuffle deck
-		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
+		std::bind([](deckUniquePtrRef deckPtr) {
 			std::lock_guard<std::mutex> lg(mtx);
 			deckPtr->Shuffle();
 			shuffleCount++;
 		}, std::placeholders::_1),
 		// Draw card
-		std::bind([](std::unique_ptr<cards::CCardDeck>& deckPtr) {
+		std::bind([](deckUniquePtrRef deckPtr) {
 			if(card != cards::CardRefs::EMPTY_DECK)
 			{
 				std::lock_guard<std::mutex> lg(mtx);
