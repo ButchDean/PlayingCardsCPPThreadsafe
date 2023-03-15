@@ -1,8 +1,6 @@
-AM_CPPFLAGS = "-I${top_srcdir}/includes -I${top_srcdir}PlayingCardsCore/includes"
+AM_CPPFLAGS = -IPlayingCardsCore/includes
 AM_CXXFLAGS = -std=c++14
 
-playingcardsthreadsafe_SOURCES = src/main.cpp 
-                                 PlayingCardsCore/src/cards.cpp 
-                                 PlayingCardsCore/src/aux/progbar.cpp
+playingcardsthreadsafe_SOURCES = src/main.cc PlayingCardsCore/src/cards.cc PlayingCardsCore/src/aux/progbar.cc
 
 bin_PROGRAMS = playingcardsthreadsafe
